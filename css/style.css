@@ -1065,7 +1065,7 @@ form label {
   }
 }
 .couple-half h3 {
-  font-family: "Sacramento", Arial, serif;
+  font-family: 'Dancing Script', Arial, serif;
   color: #F14E95;
   font-size: 30px;
 }
@@ -1085,6 +1085,8 @@ form label {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   border-radius: 50%;
+  object-fit: cover;
+  background-repeat: no-repeat;
 }
 @media screen and (max-width: 480px) {
   .couple-half .groom, .couple-half .bride {
@@ -1839,5 +1841,6 @@ form label {
 .js .animate-box {
   opacity: 0;
 }
+
 
 /*# sourceMappingURL=style.css.map */

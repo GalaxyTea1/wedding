@@ -38,6 +38,73 @@
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script type='text/javascript'>
+		//<![CDATA[
+		var pictureSrc ="images/blossom.png"; //the location of the snowflakes
+		var pictureWidth = 15; //the width of the snowflakes
+		var pictureHeight = 15; //the height of the snowflakes
+		var numFlakes = 10; //the number of snowflakes
+		var downSpeed = 0.01; //the falling speed of snowflakes (portion of screen per 100 ms)
+		var lrFlakes = 10; //the speed that the snowflakes should swing from side to side
+		
+		
+		if( typeof( numFlakes ) != 'number' || Math.round( numFlakes ) != numFlakes || numFlakes < 1 ) { numFlakes = 10; }
+		
+		//draw the snowflakes
+		for( var x = 0; x < numFlakes; x++ ) {
+		if( document.layers ) { //releave NS4 bug
+		document.write('<layer id="snFlkDiv'+x+'"><imgsrc="'+pictureSrc+'" height="'+pictureHeight+'"width="'+pictureWidth+'" alt="*" border="0"></layer>');
+		} else {
+		document.write('<div style="position:absolute; z-index:9999;"id="snFlkDiv'+x+'"><img src="'+pictureSrc+'"height="'+pictureHeight+'" width="'+pictureWidth+'" alt="*"border="0"></div>');
+		}
+		}
+		
+		//calculate initial positions (in portions of browser window size)
+		var xcoords = new Array(), ycoords = new Array(), snFlkTemp;
+		for( var x = 0; x < numFlakes; x++ ) {
+		xcoords[x] = ( x + 1 ) / ( numFlakes + 1 );
+		do { snFlkTemp = Math.round( ( numFlakes - 1 ) * Math.random() );
+		} while( typeof( ycoords[snFlkTemp] ) == 'number' );
+		ycoords[snFlkTemp] = x / numFlakes;
+		}
+		
+		//now animate
+		function flakeFall() {
+		if( !getRefToDivNest('snFlkDiv0') ) { return; }
+		var scrWidth = 0, scrHeight = 0, scrollHeight = 0, scrollWidth = 0;
+		//find screen settings for all variations. doing this every time allows for resizing and scrolling
+		if( typeof( window.innerWidth ) == 'number' ) { scrWidth = window.innerWidth; scrHeight = window.innerHeight; } else {
+		if( document.documentElement && (document.documentElement.clientWidth ||document.documentElement.clientHeight ) ) {
+		scrWidth = document.documentElement.clientWidth; scrHeight = document.documentElement.clientHeight; } else {
+		if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+		scrWidth = document.body.clientWidth; scrHeight = document.body.clientHeight; } } }
+		if( typeof( window.pageYOffset ) == 'number' ) { scrollHeight = pageYOffset; scrollWidth = pageXOffset; } else {
+		if( document.body && ( document.body.scrollLeft ||document.body.scrollTop ) ) { scrollHeight = document.body.scrollTop;scrollWidth = document.body.scrollLeft; } else {
+		if(document.documentElement && (document.documentElement.scrollLeft ||document.documentElement.scrollTop ) ) { scrollHeight =document.documentElement.scrollTop; scrollWidth =document.documentElement.scrollLeft; } }
+		}
+		//move the snowflakes to their new position
+		for( var x = 0; x < numFlakes; x++ ) {
+		if( ycoords[x] * scrHeight > scrHeight - pictureHeight ) { ycoords[x] = 0; }
+		var divRef = getRefToDivNest('snFlkDiv'+x); if( !divRef ) { return; }
+		if( divRef.style ) { divRef = divRef.style; } var oPix = document.childNodes ? 'px' : 0;
+		divRef.top = ( Math.round( ycoords[x] * scrHeight ) + scrollHeight ) + oPix;
+		divRef.left = ( Math.round( ( ( xcoords[x] * scrWidth ) - (pictureWidth / 2 ) ) + ( ( scrWidth / ( ( numFlakes + 1 ) * 4 ) ) * (Math.sin( lrFlakes * ycoords[x] ) - Math.sin( 3 * lrFlakes * ycoords[x]) ) ) ) + scrollWidth ) + oPix;
+		ycoords[x] += downSpeed;
+		}
+		}
+		
+		//DHTML handlers
+		function getRefToDivNest(divName) {
+		if( document.layers ) { return document.layers[divName]; } //NS4
+		if( document[divName] ) { return document[divName]; } //NS4 also
+		if( document.getElementById ) { return document.getElementById(divName); } //DOM (IE5+, NS6+, Mozilla0.9+, Opera)
+		if( document.all ) { return document.all[divName]; } //Proprietary DOM - IE4
+		return false;
+		}
+		
+		window.setInterval('flakeFall();',100);
+		//]]>
+		</script>  
 	</head>
 	<body>
 	<div class="fh5co-loader"></div>
@@ -60,8 +127,8 @@
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1 style="font-family: 'Dancing Script'">Công Đoan <br>&amp;<br> Thanh Hiền</h1>
 							<h2>We Are Getting Married</h2>
-							<div class="simply-countdown simply-countdown-one"></div>
-							<p><a href="#" class="btn btn-default btn-sm">Save the date</a></p>
+							<!-- <div class="simply-countdown simply-countdown-one"></div>
+							<p><a href="#" class="btn btn-default btn-sm">Save the date</a></p> -->
 						</div>
 					</div>
 				</div>
@@ -115,19 +182,34 @@
 				<div class="display-t">
 					<div class="display-tc">
 						<div class="col-md-10 col-md-offset-1">
-							
-							<div class="col-md-12 col-sm-6 text-center">
+							<div class="col-md-6 col-sm-6 text-center">
+								<div class="event-wrap animate-box">
+									<h3>Main Ceremony (Nhà Trai)</h3>
+									<div class="event-col">
+										<i class="icon-clock"></i>
+										<span>4:00 PM</span>
+										<span>6:00 PM</span>
+									</div>
+									<div class="event-col">
+										<i class="icon-calendar"></i>
+										<span>Monday 28</span>
+										<span>November, 2016</span>
+									</div>
+									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 text-center">
 								<div class="event-wrap animate-box">
 									<h3>Wedding Party</h3>
 									<div class="event-col">
 										<i class="icon-clock"></i>
-										<span>11:00 AM</span>
-										<span>2:00 PM</span>
+										<span>7:00 PM</span>
+										<span>12:00 AM</span>
 									</div>
 									<div class="event-col">
 										<i class="icon-calendar"></i>
-										<span>Sunday 16</span>
-										<span>October, 2022</span>
+										<span>Monday 28</span>
+										<span>November, 2016</span>
 									</div>
 									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 								</div>
@@ -208,79 +290,79 @@
 						
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-1.jpg); "> 
 						<a href="images/gallery-1.jpg">
-							<div class="case-studies-summary">
+							<!-- <div class="case-studies-summary">
 								<span>14 Photos</span>
 								<h2>Two Glas of Juice</h2>
-							</div>
+							</div> -->
 						</a>
 					</li>
 					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-2.jpg); ">
 						<a href="#" class="color-2">
-							<div class="case-studies-summary">
+							<!-- <div class="case-studies-summary">
 								<span>30 Photos</span>
 								<h2>Timer starts now!</h2>
-							</div>
+							</div> -->
 						</a>
 					</li>
 
 
 					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
 						<a href="#" class="color-3">
-							<div class="case-studies-summary">
+							<!-- <div class="case-studies-summary">
 								<span>90 Photos</span>
 								<h2>Beautiful sunset</h2>
-							</div>
+							</div> -->
 						</a>
 					</li>
 					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-4.jpg); ">
 						<a href="#" class="color-4">
-							<div class="case-studies-summary">
+							<!-- <div class="case-studies-summary">
 								<span>12 Photos</span>
 								<h2>Company's Conference Room</h2>
-							</div>
+							</div> -->
 						</a>
 					</li>
 
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-5.jpg); ">
 							<a href="#" class="color-3">
-								<div class="case-studies-summary">
+								<!-- <div class="case-studies-summary">
 									<span>50 Photos</span>
 									<h2>Useful baskets</h2>
-								</div>
+								</div> -->
 							</a>
 						</li>
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-6.jpg); ">
 							<a href="#" class="color-4">
-								<div class="case-studies-summary">
+								<!-- <div class="case-studies-summary">
 									<span>45 Photos</span>
 									<h2>Skater man in the road</h2>
-								</div>
+								</div> -->
 							</a>
 						</li>
 
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-7.jpg); ">
 							<a href="#" class="color-4">
-								<div class="case-studies-summary">
+								<!-- <div class="case-studies-summary">
 									<span>35 Photos</span>
 									<h2>Two Glas of Juice</h2>
-								</div>
+								</div> -->
 							</a>
 						</li>
 
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-8.jpg); "> 
 							<a href="#" class="color-5">
-								<div class="case-studies-summary">
+								<!-- <div class="case-studies-summary">
 									<span>90 Photos</span>
 									<h2>Timer starts now!</h2>
-								</div>
+								</div> -->
 							</a>
 						</li>
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-9.jpg); ">
 							<a href="#" class="color-6">
-								<div class="case-studies-summary">
+								<!-- <div class="case-studies-summary">
 									<span>56 Photos</span>
 									<h2>Beautiful sunset</h2>
-								</div>
+								</div> -->
 							</a>
 						</li>
 					</ul>		
@@ -449,6 +531,7 @@
         enableUtc: false
     });
 </script>
+
 
 	</body>
 </html>
