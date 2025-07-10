@@ -26,12 +26,15 @@ body {
 }
 #page {
   opacity: 0;
-  transition: opacity 0.8s ease;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 #page.show {
   opacity: 1;
+  visibility: visible;
 }
+
 .offcanvas #page {
   overflow: hidden;
   position: absolute;

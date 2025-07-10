@@ -223,7 +223,7 @@
 		dropdown();
 		testimonialCarousel();
 		goToTop();
-		loaderPage();
+		// loaderPage();
 		counter();
 		counterWayPoint();
 	});

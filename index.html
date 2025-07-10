@@ -17,36 +17,30 @@
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/modernizr-2.6.2.min.js"></script>
-	<script type='text/javascript'>
-		window.addEventListener('load', function () {
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function () {
 			const loader = document.querySelector('.fh5co-loader');
 			const page = document.getElementById('page');
-			const loadStartTime = Date.now();
 
-			function hideLoader() {
-				const elapsedTime = Date.now() - loadStartTime;
-				const remainingTime = Math.max(0, 5500 - elapsedTime);
+			setTimeout(function () {
+				if (loader) {
+					loader.classList.add('hidden');
+				}
+
+				if (page) {
+					page.classList.add('show');
+				}
 
 				setTimeout(function () {
 					if (loader) {
-						loader.classList.add('hidden');
+						loader.style.display = 'none';
 					}
+				}, 800);
+			}, 5500);
 
-					if (page) {
-						page.classList.add('show');
-					}
-
-					setTimeout(function () {
-						if (loader) {
-							loader.style.display = 'none';
-						}
-					}, 800);
-
-				}, remainingTime);
-			}
-
-			hideLoader();
 		});
+	</script>
+	<script type='text/javascript'>
 		class OptimizedFallingHearts {
 			constructor() {
 				this.hearts = [];
