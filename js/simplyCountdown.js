@@ -1,5 +1,4 @@
 
-/*global window, document*/
 (function (exports) {
     'use strict';
 
@@ -105,10 +104,10 @@
      */
     simplyCountdown = function (elt, args) {
         var parameters = extend({
-                year: 2022,
-                month: 10,
-                day: 16,
-                hours: -3,
+                year: 2025,
+                month: 7,
+                day: 10,
+                hours: 12,
                 minutes: 0,
                 seconds: 0,
                 words: {

@@ -5,11 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
-/* =======================================================
-*
-* 	Template Style 
-*
-* ======================================================= */
+
 body {
   font-family: "Work Sans", Arial, sans-serif;
   font-weight: 400;
@@ -27,6 +23,14 @@ body {
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
+}
+#page {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+#page.show {
+  opacity: 1;
 }
 .offcanvas #page {
   overflow: hidden;
@@ -99,10 +103,10 @@ h1, h2, h3, h4, h5, h6, figure {
   }
 }
 .fh5co-nav #fh5co-logo {
-  font-size: 40px;
+  font-size: 56px;
   margin: 0;
   padding: 0;
-  line-height: 40px;
+  line-height: 56px;
   font-family: "Sacramento", Arial, serif;
 }
 .fh5co-nav a {
@@ -204,7 +208,7 @@ h1, h2, h3, h4, h5, h6, figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -296,7 +300,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .fh5co-cover {
-  height: 900px;
+  height: 950px;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
@@ -309,7 +313,7 @@ h1, h2, h3, h4, h5, h6, figure {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 111, 124, 0.78);
 }
 .fh5co-cover > .fh5co-container {
   position: relative;
@@ -761,13 +765,13 @@ h1, h2, h3, h4, h5, h6, figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
 }
 .fh5co-social-icons li a {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   color: #F14E95;
   padding-left: 10px;
   padding-right: 10px;
@@ -798,7 +802,6 @@ h1, h2, h3, h4, h5, h6, figure {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -933,12 +936,10 @@ form label {
 }
 
 .simply-countdown {
-  /* The countdown */
   margin-bottom: 2em;
 }
 
 .simply-countdown > .simply-section {
-  /* coutndown blocks */
   display: inline-block;
   width: 100px;
   height: 100px;
@@ -964,7 +965,6 @@ form label {
   }
 }
 .simply-countdown > .simply-section > div {
-  /* countdown block inner div */
   display: table-cell;
   vertical-align: middle;
   height: 100px;
@@ -975,19 +975,16 @@ form label {
 .simply-countdown > .simply-section .simply-word {
   display: block;
   color: white;
-  /* amounts and words */
 }
 
 .simply-countdown > .simply-section .simply-amount {
   font-size: 30px;
-  /* amounts */
 }
 
 .simply-countdown > .simply-section .simply-word {
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   font-size: 12px;
-  /* words */
 }
 
 #fh5co-testimonial,
@@ -1226,7 +1223,7 @@ form label {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   width: 100px;
   height: 100px;
 }
@@ -1360,11 +1357,6 @@ form label {
   color: #fff;
 }
 #fh5co-started .form-control:-moz-placeholder {
-  /* Firefox 18- */
-  color: #fff;
-}
-#fh5co-started .form-control::-moz-placeholder {
-  /* Firefox 19+ */
   color: #fff;
 }
 #fh5co-started .form-control:-ms-input-placeholder {
@@ -1483,7 +1475,6 @@ form label {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\e921";
@@ -1835,12 +1826,9 @@ form label {
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url(../images/loader.gif) center no-repeat #fff;
+  background: url(../images/loading_heart.gif) center no-repeat #fff;
 }
 
 .js .animate-box {
   opacity: 0;
 }
-
-
-/*# sourceMappingURL=style.css.map */

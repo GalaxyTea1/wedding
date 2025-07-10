@@ -1,422 +1,366 @@
 <!DOCTYPE html>
-	<head>
+
+<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Thanh Hien & Cong Doan</title>
+	<title>We Are Getting Married</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
 	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
+		type='text/css'>
 	<link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
-	
-	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
 	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="css/bootstrap.css">
-
-	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="css/magnific-popup.css">
-
-	<!-- Owl Carousel  -->
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
-
-	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<script type='text/javascript'>
-		//<![CDATA[
-		var pictureSrc ="images/blossom.png"; //the location of the snowflakes
-		var pictureWidth = 15; //the width of the snowflakes
-		var pictureHeight = 15; //the height of the snowflakes
-		var numFlakes = 10; //the number of snowflakes
-		var downSpeed = 0.01; //the falling speed of snowflakes (portion of screen per 100 ms)
-		var lrFlakes = 10; //the speed that the snowflakes should swing from side to side
-		
-		
-		if( typeof( numFlakes ) != 'number' || Math.round( numFlakes ) != numFlakes || numFlakes < 1 ) { numFlakes = 10; }
-		
-		//draw the snowflakes
-		for( var x = 0; x < numFlakes; x++ ) {
-		if( document.layers ) { //releave NS4 bug
-		document.write('<layer id="snFlkDiv'+x+'"><imgsrc="'+pictureSrc+'" height="'+pictureHeight+'"width="'+pictureWidth+'" alt="*" border="0"></layer>');
-		} else {
-		document.write('<div style="position:absolute; z-index:9999;"id="snFlkDiv'+x+'"><img src="'+pictureSrc+'"height="'+pictureHeight+'" width="'+pictureWidth+'" alt="*"border="0"></div>');
+		window.addEventListener('load', function () {
+			const loader = document.querySelector('.fh5co-loader');
+			const page = document.getElementById('page');
+			const loadStartTime = Date.now();
+
+			function hideLoader() {
+				const elapsedTime = Date.now() - loadStartTime;
+				const remainingTime = Math.max(0, 5500 - elapsedTime);
+
+				setTimeout(function () {
+					if (loader) {
+						loader.classList.add('hidden');
+					}
+
+					if (page) {
+						page.classList.add('show');
+					}
+
+					setTimeout(function () {
+						if (loader) {
+							loader.style.display = 'none';
+						}
+					}, 800);
+
+				}, remainingTime);
+			}
+
+			hideLoader();
+		});
+		class OptimizedFallingHearts {
+			constructor() {
+				this.hearts = [];
+				this.maxHearts = 20;
+				this.animationId = null;
+				this.lastTime = 0;
+				this.heartPool = [];
+				this.isActive = true;
+				this.frameSkip = 0;
+				this.init();
+			}
+
+			init() {
+				this.createHeartPool();
+
+				for (let i = 0; i < this.maxHearts; i++) {
+					setTimeout(() => {
+						if (this.isActive) {
+							this.createHeart();
+						}
+					}, i * 800);
+				}
+				this.animate();
+			}
+
+			createHeartPool() {
+				for (let i = 0; i < this.maxHearts + 5; i++) {
+					const element = document.createElement('div');
+					element.innerHTML = '<img src="images/heart.svg" alt="heart" style="width: 30px; height: 30px;">';
+					element.style.position = 'fixed';
+					element.style.pointerEvents = 'none';
+					element.style.zIndex = '9999';
+					element.style.display = 'none';
+					element.style.left = '0px';
+					element.style.top = '0px';
+					element.style.willChange = 'transform, opacity';
+					document.body.appendChild(element);
+					this.heartPool.push(element);
+				}
+			}
+
+			getHeartFromPool() {
+				return this.heartPool.find(heart => heart.style.display === 'none');
+			}
+
+			createHeart() {
+				const element = this.getHeartFromPool();
+				if (!element) return;
+
+				const heart = {
+					element: element,
+					x: Math.random() * (window.innerWidth - 30),
+					y: -50,
+					speed: 0.8 + Math.random() * 1.2,
+					swing: Math.random() * 3 - 1.5,
+					swingSpeed: 0.1 + Math.random() * 0.015,
+					time: 0,
+					opacity: 0.4 + Math.random() * 0.3,
+					baseX: 0
+				};
+
+				heart.baseX = heart.x;
+				element.style.display = 'block';
+				element.style.opacity = heart.opacity;
+				element.style.left = '0px';
+				element.style.top = '0px';
+				element.style.transform = `translate3d(${heart.x}px, ${heart.y}px, 0)`;
+
+				this.hearts.push(heart);
+			}
+
+			animate(currentTime = 0) {
+				if (!this.isActive) return;
+
+				const deltaTime = currentTime - this.lastTime;
+				this.lastTime = currentTime;
+
+				this.frameSkip++;
+				if (this.frameSkip % 2 === 0) {
+					this.updateHearts(deltaTime);
+				}
+
+				this.animationId = requestAnimationFrame((time) => this.animate(time));
+			}
+
+			updateHearts(deltaTime) {
+				for (let i = this.hearts.length - 1; i >= 0; i--) {
+					const heart = this.hearts[i];
+
+					heart.time += deltaTime * 0.001;
+					heart.y += heart.speed;
+
+					const swingOffset = Math.sin(heart.time * heart.swingSpeed * 8) * heart.swing;
+					const currentX = heart.baseX + swingOffset;
+
+					heart.element.style.transform = `translate3d(${currentX}px, ${heart.y}px, 0)`;
+
+					if (heart.y > window.innerHeight + 100) {
+						this.recycleHeart(heart, i);
+					}
+				}
+			}
+
+			recycleHeart(heart, index) {
+				heart.element.style.display = 'none';
+				this.hearts.splice(index, 1);
+
+				if (this.isActive && this.hearts.length < this.maxHearts) {
+					setTimeout(() => {
+						if (this.isActive) {
+							this.createHeart();
+						}
+					}, 500 + Math.random() * 1000);
+				}
+			}
+
+			handleVisibilityChange() {
+				if (document.hidden) {
+					this.pause();
+				} else {
+					this.resume();
+				}
+			}
+
+			pause() {
+				this.isActive = false;
+				if (this.animationId) {
+					cancelAnimationFrame(this.animationId);
+					this.animationId = null;
+				}
+			}
+
+			resume() {
+				if (!this.isActive) {
+					this.isActive = true;
+					this.animate();
+				}
+			}
+
+			destroy() {
+				this.isActive = false;
+
+				if (this.animationId) {
+					cancelAnimationFrame(this.animationId);
+				}
+
+				this.hearts.forEach(heart => {
+					heart.element.style.display = 'none';
+				});
+
+				this.heartPool.forEach(element => {
+					if (element.parentNode) {
+						element.parentNode.removeChild(element);
+					}
+				});
+
+				this.hearts = [];
+				this.heartPool = [];
+			}
+
+			handleResize() {
+				this.hearts.forEach(heart => {
+					if (heart.x > window.innerWidth - 30) {
+						heart.x = window.innerWidth - 30;
+						heart.baseX = heart.x;
+					}
+				});
+			}
 		}
+
+		let heartsAnimation;
+
+		window.addEventListener('load', function () {
+			heartsAnimation = new OptimizedFallingHearts();
+
+			document.addEventListener('visibilitychange', function () {
+				if (heartsAnimation) {
+					heartsAnimation.handleVisibilityChange();
+				}
+			});
+		});
+
+		window.addEventListener('beforeunload', function () {
+			if (heartsAnimation) {
+				heartsAnimation.destroy();
+			}
+		});
+
+		window.addEventListener('resize', function () {
+			if (heartsAnimation) {
+				heartsAnimation.handleResize();
+			}
+		});
+
+		if (typeof performance !== 'undefined' && performance.mark) {
+			setInterval(() => {
+				const entries = performance.getEntriesByType('measure');
+				if (entries.length > 100) {
+					performance.clearMeasures();
+				}
+			}, 30000);
 		}
-		
-		//calculate initial positions (in portions of browser window size)
-		var xcoords = new Array(), ycoords = new Array(), snFlkTemp;
-		for( var x = 0; x < numFlakes; x++ ) {
-		xcoords[x] = ( x + 1 ) / ( numFlakes + 1 );
-		do { snFlkTemp = Math.round( ( numFlakes - 1 ) * Math.random() );
-		} while( typeof( ycoords[snFlkTemp] ) == 'number' );
-		ycoords[snFlkTemp] = x / numFlakes;
-		}
-		
-		//now animate
-		function flakeFall() {
-		if( !getRefToDivNest('snFlkDiv0') ) { return; }
-		var scrWidth = 0, scrHeight = 0, scrollHeight = 0, scrollWidth = 0;
-		//find screen settings for all variations. doing this every time allows for resizing and scrolling
-		if( typeof( window.innerWidth ) == 'number' ) { scrWidth = window.innerWidth; scrHeight = window.innerHeight; } else {
-		if( document.documentElement && (document.documentElement.clientWidth ||document.documentElement.clientHeight ) ) {
-		scrWidth = document.documentElement.clientWidth; scrHeight = document.documentElement.clientHeight; } else {
-		if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-		scrWidth = document.body.clientWidth; scrHeight = document.body.clientHeight; } } }
-		if( typeof( window.pageYOffset ) == 'number' ) { scrollHeight = pageYOffset; scrollWidth = pageXOffset; } else {
-		if( document.body && ( document.body.scrollLeft ||document.body.scrollTop ) ) { scrollHeight = document.body.scrollTop;scrollWidth = document.body.scrollLeft; } else {
-		if(document.documentElement && (document.documentElement.scrollLeft ||document.documentElement.scrollTop ) ) { scrollHeight =document.documentElement.scrollTop; scrollWidth =document.documentElement.scrollLeft; } }
-		}
-		//move the snowflakes to their new position
-		for( var x = 0; x < numFlakes; x++ ) {
-		if( ycoords[x] * scrHeight > scrHeight - pictureHeight ) { ycoords[x] = 0; }
-		var divRef = getRefToDivNest('snFlkDiv'+x); if( !divRef ) { return; }
-		if( divRef.style ) { divRef = divRef.style; } var oPix = document.childNodes ? 'px' : 0;
-		divRef.top = ( Math.round( ycoords[x] * scrHeight ) + scrollHeight ) + oPix;
-		divRef.left = ( Math.round( ( ( xcoords[x] * scrWidth ) - (pictureWidth / 2 ) ) + ( ( scrWidth / ( ( numFlakes + 1 ) * 4 ) ) * (Math.sin( lrFlakes * ycoords[x] ) - Math.sin( 3 * lrFlakes * ycoords[x]) ) ) ) + scrollWidth ) + oPix;
-		ycoords[x] += downSpeed;
-		}
-		}
-		
-		//DHTML handlers
-		function getRefToDivNest(divName) {
-		if( document.layers ) { return document.layers[divName]; } //NS4
-		if( document[divName] ) { return document[divName]; } //NS4 also
-		if( document.getElementById ) { return document.getElementById(divName); } //DOM (IE5+, NS6+, Mozilla0.9+, Opera)
-		if( document.all ) { return document.all[divName]; } //Proprietary DOM - IE4
-		return false;
-		}
-		
-		window.setInterval('flakeFall();',100);
-		//]]>
-		</script>  
-	</head>
-	<body>
+	</script>
+</head>
+
+<body>
 	<div class="fh5co-loader"></div>
 	<div id="page">
-	<nav class="fh5co-nav" role="navigation">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">Wedding<strong>.</strong></a></div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(images/img_bg_2.jpg);" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1 style="font-family: 'Dancing Script'">Công Đoan <br>&amp;<br> Thanh Hiền</h1>
-							<h2>We Are Getting Married</h2>
-							<!-- <div class="simply-countdown simply-countdown-one"></div>
-							<p><a href="#" class="btn btn-default btn-sm">Save the date</a></p> -->
-						</div>
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-2">
+						<div id="fh5co-logo"><a href="index.html">Wedding<strong>.</strong></a></div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
-
-	<div id="fh5co-couple">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<h2>Hello!</h2>
-					<h3>October 16th, 2022 Huế, Việt Nam</h3>
-					<p>We invited you to celebrate our wedding</p>
-				</div>
-			</div>
-			<div class="couple-wrap animate-box">
-				<div class="couple-half">
-					<div class="groom">
-						<img src="images/groom.jpg" alt="groom" class="img-responsive">
-					</div>
-					<div class="desc-groom">
-						<h3>Công Đoan</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-					</div>
-				</div>
-				<p class="heart text-center"><i class="icon-heart2"></i></p>
-				<div class="couple-half">
-					<div class="bride">
-						<img src="images/bride.jpg" alt="groom" class="img-responsive">
-					</div>
-					<div class="desc-bride">
-						<h3>Thanh Hiền</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="fh5co-event" class="fh5co-bg" style="background-image:url(images/img_bg_3.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>Our Special Events</span>
-					<h2>Wedding Events</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="display-t">
-					<div class="display-tc">
-						<div class="col-md-10 col-md-offset-1">
-							<div class="col-md-6 col-sm-6 text-center">
-								<div class="event-wrap animate-box">
-									<h3>Main Ceremony (Nhà Trai)</h3>
-									<div class="event-col">
-										<i class="icon-clock"></i>
-										<span>4:00 PM</span>
-										<span>6:00 PM</span>
-									</div>
-									<div class="event-col">
-										<i class="icon-calendar"></i>
-										<span>Monday 28</span>
-										<span>November, 2016</span>
-									</div>
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-6 text-center">
-								<div class="event-wrap animate-box">
-									<h3>Wedding Party</h3>
-									<div class="event-col">
-										<i class="icon-clock"></i>
-										<span>7:00 PM</span>
-										<span>12:00 AM</span>
-									</div>
-									<div class="event-col">
-										<i class="icon-calendar"></i>
-										<span>Monday 28</span>
-										<span>November, 2016</span>
-									</div>
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
+		</nav>
+		<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(images/img_bg_2.jpg);"
+			data-stellar-background-ratio="0.5">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<div class="display-t">
+							<div class="display-tc animate-box" data-animate-effect="fadeIn">
+								<h1 style="font-family: 'Dancing Script'">Công Đoan <br>&amp;<br> Thanh Hiền</h1>
+								<h2>We Are Getting Married</h2>
+								<!-- <div class="simply-countdown simply-countdown-one"></div>
+								<p><a href="#" class="btn btn-default btn-sm">Save the date</a></p> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</header>
 
-	<div id="fh5co-couple-story">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>We Love Each Other</span>
-					<h2>Our Story</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		<div id="fh5co-couple">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+						<h2>Hello!</h2>
+						<h3>October 16th, 2025 Huế, Việt Nam</h3>
+						<p>We invited you to celebrate our wedding</p>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 col-md-offset-0">
-					<ul class="timeline animate-box">
-						<li class="animate-box">
-							<div class="timeline-badge" style="background-image:url(images/couple-1.jpg);"></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">First We Meet</h3>
-									<span class="date">December 25, 2015</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
-						<li class="timeline-inverted animate-box">
-							<div class="timeline-badge" style="background-image:url(images/couple-2.jpg);"></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">First Date</h3>
-									<span class="date">December 28, 2015</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
-						<li class="animate-box">
-							<div class="timeline-badge" style="background-image:url(images/couple-3.jpg);"></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">In A Relationship</h3>
-									<span class="date">January 1, 2016</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
-			    	</ul>
+				<div class="couple-wrap animate-box">
+					<div class="couple-half">
+						<div class="groom">
+							<img src="images/groom.jpg" alt="groom" class="img-responsive">
+						</div>
+						<div class="desc-groom">
+							<h3>Công Đoan</h3>
+							<p></p>
+						</div>
+					</div>
+					<p class="heart text-center"><i class="icon-heart2"></i></p>
+					<div class="couple-half">
+						<div class="bride">
+							<img src="images/bride.jpg" alt="groom" class="img-responsive">
+						</div>
+						<div class="desc-bride">
+							<h3>Thanh Hiền</h3>
+							<p></p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div id="fh5co-gallery" class="fh5co-section-gray">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>Our Memories</span>
-					<h2>Wedding Gallery</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-				</div>
-			</div>
-			<div class="row row-bottom-padded-md">
-				<div class="col-md-12">
-					<ul id="fh5co-gallery-list">
-						
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-1.jpg); "> 
-						<a href="images/gallery-1.jpg">
-							<!-- <div class="case-studies-summary">
-								<span>14 Photos</span>
-								<h2>Two Glas of Juice</h2>
-							</div> -->
-						</a>
-					</li>
-					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-2.jpg); ">
-						<a href="#" class="color-2">
-							<!-- <div class="case-studies-summary">
-								<span>30 Photos</span>
-								<h2>Timer starts now!</h2>
-							</div> -->
-						</a>
-					</li>
-
-
-					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
-						<a href="#" class="color-3">
-							<!-- <div class="case-studies-summary">
-								<span>90 Photos</span>
-								<h2>Beautiful sunset</h2>
-							</div> -->
-						</a>
-					</li>
-					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-4.jpg); ">
-						<a href="#" class="color-4">
-							<!-- <div class="case-studies-summary">
-								<span>12 Photos</span>
-								<h2>Company's Conference Room</h2>
-							</div> -->
-						</a>
-					</li>
-
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-5.jpg); ">
-							<a href="#" class="color-3">
-								<!-- <div class="case-studies-summary">
-									<span>50 Photos</span>
-									<h2>Useful baskets</h2>
-								</div> -->
-							</a>
-						</li>
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-6.jpg); ">
-							<a href="#" class="color-4">
-								<!-- <div class="case-studies-summary">
-									<span>45 Photos</span>
-									<h2>Skater man in the road</h2>
-								</div> -->
-							</a>
-						</li>
-
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-7.jpg); ">
-							<a href="#" class="color-4">
-								<!-- <div class="case-studies-summary">
-									<span>35 Photos</span>
-									<h2>Two Glas of Juice</h2>
-								</div> -->
-							</a>
-						</li>
-
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-8.jpg); "> 
-							<a href="#" class="color-5">
-								<!-- <div class="case-studies-summary">
-									<span>90 Photos</span>
-									<h2>Timer starts now!</h2>
-								</div> -->
-							</a>
-						</li>
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-9.jpg); ">
-							<a href="#" class="color-6">
-								<!-- <div class="case-studies-summary">
-									<span>56 Photos</span>
-									<h2>Beautiful sunset</h2>
-								</div> -->
-							</a>
-						</li>
-					</ul>		
-				</div>
-			</div>
-		</div>
-	</div>
-
-	
-
-	<!-- <div id="fh5co-testimonial">
-		<div class="container">
-			<div class="row">
-				<div class="row animate-box">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<span>Best Wishes</span>
-						<h2>Friends Wishes</h2>
+		<div id="fh5co-event" class="fh5co-bg" style="background-image:url(images/img_bg_3.jpg);">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+						<span>Our Special Events</span>
+						<h2>Wedding Events</h2>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12 animate-box">
-						<div class="wrap-testimony">
-							<div class="owl-carousel-fullwidth">
-								<div class="item">
-									<div class="testimony-slide active text-center">
-										<figure>
-											<img src="images/couple-1.jpg" alt="user">
-										</figure>
-										<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-										<blockquote>
-											<p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics"</p>
-										</blockquote>
+					<div class="display-t">
+						<div class="display-tc">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="col-md-6 col-sm-6 text-center">
+									<div class="event-wrap animate-box">
+										<h3>Main Ceremony (Nhà Trai)</h3>
+										<div class="event-col">
+											<i class="icon-clock"></i>
+											<span>4:00 PM</span>
+											<span>6:00 PM</span>
+										</div>
+										<div class="event-col">
+											<i class="icon-calendar"></i>
+											<span>Monday 28</span>
+											<span>November, 2016</span>
+										</div>
+										<p>Nhà Trai
+										</p>
 									</div>
 								</div>
-								<div class="item">
-									<div class="testimony-slide active text-center">
-										<figure>
-											<img src="images/couple-2.jpg" alt="user">
-										</figure>
-										<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-										<blockquote>
-											<p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, at the coast of the Semantics, a large language ocean."</p>
-										</blockquote>
-									</div>
-								</div>
-								<div class="item">
-									<div class="testimony-slide active text-center">
-										<figure>
-											<img src="images/couple-3.jpg" alt="user">
-										</figure>
-										<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-										<blockquote>
-											<p>"Far far away, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-										</blockquote>
+								<div class="col-md-6 col-sm-6 text-center">
+									<div class="event-wrap animate-box">
+										<h3>Wedding Party</h3>
+										<div class="event-col">
+											<i class="icon-clock"></i>
+											<span>7:00 PM</span>
+											<span>12:00 AM</span>
+										</div>
+										<div class="event-col">
+											<i class="icon-calendar"></i>
+											<span>Monday 28</span>
+											<span>November, 2016</span>
+										</div>
+										<p>Nhà gái
+										</p>
 									</div>
 								</div>
 							</div>
@@ -425,69 +369,186 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
 
-
-	<div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/img_bg_4.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Are You Attending?</h2>
-					<p>Please Fill-up the form to notify you that you're attending. Thanks.</p>
+		<div id="fh5co-couple-story">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+						<span>We Love Each Other</span>
+						<h2>Our Story</h2>
+						<p>Happiness is not a destination, but the journey we go through together.</p>
+					</div>
 				</div>
-			</div>
-			<div class="row animate-box">
-				<div class="col-md-10 col-md-offset-1">
-					<form class="form-inline">
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="name" class="sr-only">Name</label>
-								<input type="name" class="form-control" id="name" placeholder="Name">
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="email" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="email" placeholder="Email">
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<button type="submit" class="btn btn-default btn-block">I am Attending</button>
-						</div>
-					</form>
+				<div class="row">
+					<div class="col-md-12 col-md-offset-0">
+						<ul class="timeline animate-box">
+							<li class="animate-box">
+								<div class="timeline-badge" style="background-image:url(images/couple-1.jpg);"></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3 class="timeline-title">First We Meet</h3>
+										<span class="date">December 25, 2015</span>
+									</div>
+									<div class="timeline-body">
+										<p>To the world you may be one person, but to one person you may be the world.
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="timeline-inverted animate-box">
+								<div class="timeline-badge" style="background-image:url(images/couple-2.jpg);"></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3 class="timeline-title">First Date</h3>
+										<span class="date">December 28, 2015</span>
+									</div>
+									<div class="timeline-body">
+										<p>To the world you may be one person, but to one person you may be the world.
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="animate-box">
+								<div class="timeline-badge" style="background-image:url(images/couple-3.jpg);"></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3 class="timeline-title">In A Relationship</h3>
+										<span class="date">January 1, 2016</span>
+									</div>
+									<div class="timeline-body">
+										<p>To the world you may be one person, but to one person you may be the world.
+										</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<footer id="fh5co-footer" role="contentinfo">
-		<div class="container">
+		<div id="fh5co-gallery" class="fh5co-section-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+						<span>Our Memories</span>
+						<h2>Wedding Gallery</h2>
+						<p>To the world you may be one person, but to one person you may be the world.</p>
+					</div>
+				</div>
+				<div class="row row-bottom-padded-md">
+					<div class="col-md-12">
+						<ul id="fh5co-gallery-list">
 
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block"></small> 
-						<small class="block"></small>
-					</p>
-					<p>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-1.jpg); ">
+								<a href="images/gallery-1.jpg">
+								</a>
+							</li>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-2.jpg); ">
+								<a href="#" class="color-2">
+								</a>
+							</li>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-3.jpg); ">
+								<a href="#" class="color-3">
+								</a>
+							</li>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-4.jpg); ">
+								<a href="#" class="color-4">
+								</a>
+							</li>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-5.jpg); ">
+								<a href="#" class="color-3">
+								</a>
+							</li>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-6.jpg); ">
+								<a href="#" class="color-4">
+								</a>
+							</li>
+
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-7.jpg); ">
+								<a href="#" class="color-4">
+								</a>
+							</li>
+
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-8.jpg); ">
+								<a href="#" class="color-5">
+								</a>
+							</li>
+							<li class="one-third animate-box" data-animate-effect="fadeIn"
+								style="background-image: url(images/gallery-9.jpg); ">
+								<a href="#" class="color-6">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/img_bg_4.jpg);">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<h2>Are You Attending?</h2>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-10 col-md-offset-1">
+						<form class="form-inline">
+							<div class="col-md-4 col-sm-4">
+								<div class="form-group">
+									<label for="name" class="sr-only">Name</label>
+									<input type="name" class="form-control" id="name" placeholder="Name">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<div class="form-group">
+									<label for="email" class="sr-only">Email</label>
+									<input type="email" class="form-control" id="email" placeholder="Email">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<button type="submit" class="btn btn-default btn-block">I am Attending</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="fh5co-footer" role="contentinfo">
+			<div class="container">
+				<div class="row copyright">
+					<div class="col-md-12 text-center">
+						<p>
+							<small class="block"></small>
+							<small class="block"></small>
+						</p>
+						<p>
 						<ul class="fh5co-social-icons">
 							<li><a href="#"><i class="icon-twitter"></i></a></li>
 							<li><a href="#"><i class="icon-facebook"></i></a></li>
 							<li><a href="#"><i class="icon-instagram"></i></a></li>
 						</ul>
-					</p>
+						</p>
+					</div>
 				</div>
 			</div>
-
-		</div>
-	</footer>
+		</footer>
 	</div>
 
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
-	
+
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -507,32 +568,29 @@
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
 
-	<!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script> -->
 	<script src="js/simplyCountdown.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
 	<script>
-    var d = new Date(new Date().getTime() + 190 * 120 * 120 * 500);
+		var d = new Date(new Date().getTime() + 190 * 120 * 120 * 500);
 
-    // default example
-    simplyCountdown('.simply-countdown-one', {
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate()
-    });
+		// default example
+		simplyCountdown('.simply-countdown-one', {
+			year: d.getFullYear(),
+			month: d.getMonth() + 1,
+			day: d.getDate()
+		});
 
-    //jQuery example
-    $('#simply-countdown-losange').simplyCountdown({
-        year: d.getFullYear(),
-        month: d.getMonth(),
-        day: d.getDate(),
-		
-        enableUtc: false
-    });
-</script>
+		//jQuery example
+		$('#simply-countdown-losange').simplyCountdown({
+			year: d.getFullYear(),
+			month: d.getMonth(),
+			day: d.getDate(),
 
+			enableUtc: false
+		});
+	</script>
+</body>
 
-	</body>
 </html>
-
