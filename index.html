@@ -52,6 +52,7 @@
 				this.heartPool = [];
 				this.isActive = true;
 				this.frameSkip = 0;
+				this.heartIconUrl = '/heart.svg';
 				this.init();
 			}
 
@@ -71,11 +72,12 @@
 			createHeartPool() {
 				for (let i = 0; i < this.maxHearts + 5; i++) {
 					const element = document.createElement('div');
-					element.innerHTML = '<img src="images/heart.svg" alt="heart" style="width: 30px; height: 30px;">';
+					element.innerHTML = `<img src="${this.heartIconUrl}" alt="heart" style="width: 30px; height: 30px;">`;
 					element.style.position = 'fixed';
 					element.style.pointerEvents = 'none';
 					element.style.zIndex = '9999';
 					element.style.display = 'none';
+
 					element.style.left = '0px';
 					element.style.top = '0px';
 					element.style.willChange = 'transform, opacity';
