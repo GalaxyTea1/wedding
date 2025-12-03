@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Dashboard</title>
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/realtime.css">
+</head>
+<body>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>Admin Access</h2>
+            <div class="form-group">
+                <input type="password" id="admin-pin" class="form-control" placeholder="Enter PIN (1234)">
+            </div>
+            <button id="btn-login" class="btn-primary">Login</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container" style="display: none;" id="main-dashboard">
+        <div class="dashboard-header">
+            <h1>Wedding Dashboard</h1>
+            <div>
+                <span id="connection-status" style="color: green;">● Connected</span>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Left Column: Controls -->
+            <div class="control-panel">
+                <h2>Send Notification</h2>
+                <p>Send a toast message to all connected guests.</p>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="notify-message" class="form-control" rows="3" placeholder="e.g., The ceremony is starting in 5 minutes!"></textarea>
+                </div>
+                <button id="btn-send-notify" class="btn-primary">Send Notification</button>
+            </div>
+
+            <!-- Right Column: Wishes -->
+            <div class="wishes-panel">
+                <div class="wishes-panel-header">
+                    <h2>Recent Wishes</h2>
+                    <input type="search" id="search-wishes" class="form-control" placeholder="Search wishes...">
+                </div>
+                <div id="dashboard-wishes-list">
+                    <!-- Wishes will be loaded here -->
+                    <p style="color: #999; text-align: center;">Waiting for wishes...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & Logic -->
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -16,6 +17,7 @@
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/realtime.css">
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function () {
@@ -517,26 +519,42 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<footer id="fh5co-footer" role="contentinfo">
-			<div class="container">
-				<div class="row copyright">
-					<div class="col-md-12 text-center">
-						<p>
-							<small class="block"></small>
-							<small class="block"></small>
-						</p>
-						<p>
-						<ul class="fh5co-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-instagram"></i></a></li>
-						</ul>
-						</p>
+	<!-- Toast Container -->
+	<div id="toast-container"></div>
+
+	<!-- Wishes Section -->
+	<div id="fh5co-wishes" style="padding-top: 20px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+					<h2>Wedding Wishes</h2>
+					<p>Send us your warm wishes!</p>
+				</div>
+			</div>
+			<div class="row animate-box">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="wish-name" class="sr-only">Name</label>
+								<input type="text" class="form-control" id="wish-name" placeholder="Your Name">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="wish-message" class="sr-only">Message</label>
+								<input type="text" class="form-control" id="wish-message" placeholder="Your Message">
+							</div>
+						</div>
+						<div class="col-md-12 text-center">
+							<button id="btn-send-wish" class="btn btn-primary">Send Wish</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</footer>
+		</div>
 	</div>
 
 	<div class="gototop js-top">
@@ -566,17 +584,18 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
+	<!-- Firebase Realtime Script -->
+	<script type="module" src="js/wedding-realtime.js"></script>
+
 	<script>
 		var d = new Date(new Date().getTime() + 190 * 120 * 120 * 500);
 
-		// default example
 		simplyCountdown('.simply-countdown-one', {
 			year: d.getFullYear(),
 			month: d.getMonth() + 1,
 			day: d.getDate()
 		});
 
-		//jQuery example
 		$('#simply-countdown-losange').simplyCountdown({
 			year: d.getFullYear(),
 			month: d.getMonth(),

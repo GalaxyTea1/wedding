@@ -1,0 +1,25 @@
+{
+  "name": "wedding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GalaxyTea1/wedding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GalaxyTea1/wedding/issues"
+  },
+  "homepage": "https://github.com/GalaxyTea1/wedding#readme",
+  "devDependencies": {
+    "vite": "^7.2.6"
+  }
+}
