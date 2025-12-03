@@ -799,7 +799,6 @@ h1, h2, h3, h4, h5, h6, figure {
   left: 0;
   top: .05em;
   font-family: 'icomoon';
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -1472,7 +1471,6 @@ form label {
   position: absolute;
   right: 0px;
   font-family: 'icomoon';
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -1829,7 +1827,7 @@ form label {
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url(../images/loading_heart.gif) center no-repeat #f8f9f978;
+  background: url(/loading_heart.gif) center no-repeat #f8f9f978;
 }
 
 .js .animate-box {
